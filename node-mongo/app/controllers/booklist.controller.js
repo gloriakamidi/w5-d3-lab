@@ -14,23 +14,23 @@ exports.createBooklist = (req, res) => {
   //Save a Book in the MongoDB
   booklist
     .save()
-    .then((data) => {
+    .then(data => {
       res.status(200).json(data);
     })
     .catch((err) => {
       res.status(500).json({
         message: "Fail!",
-        error: err.message,
+        error: err.message
       });
     });
 };
 exports.getBooklist = (req, res) => {
   Booklist.findById(req.params.id)
     .select("-__v")
-    .then((booklist) => {
+    .then(booklist => {
       res.status(200).json(booklist);
     })
-    .catch((err) => {
+    .catch(err => {
       if (err.kind === "ObjectId") {
         return res.status(404).send({
           message: "Book  not found with id" + req.params.id,
@@ -44,13 +44,13 @@ exports.getBooklist = (req, res) => {
     });
 };
 
-exports.booklist = (req, res) => {
+exports.booklists = (req, res) => {
   Booklist.find()
     .select("-__v")
     .then(booklistInfos => {
       res.status(200).json(booklistInfos);
     })
-    .catch((error) => {
+    .catch(error => {
       //log on console
       console.log(error);
 
